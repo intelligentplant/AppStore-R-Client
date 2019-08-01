@@ -30,10 +30,40 @@ GetHistoricalData = function(access_token, dsn, tags, startDate, endDate, funct,
   #The endpoint of the API
   valuesApiEndpoint <- "/api/data/v2/history/"
 
+  #ensures none of the necessary parameters are null
   if (is.null(tags)) {
     print("Tags parameter can't be empty!")
     return();
   }
+  if(is.null(dsn)) {
+    print("Data source must be specified")
+    return()
+  }
+  if (is.null(startDate)) {
+    print("Start date must be specified")
+    return()
+  }
+  if(is.null(endDate)) {
+    print("End date must be specified")
+    return()
+  }
+  if(is.null(funct)) {
+    print("Data function must be specified")
+    return()
+  }
+  if(is.null(step)) {
+    print("Time-step must be specified")
+    return()
+  }
+
+  #The required packages for the
+  requiredPackages <- c('httr', 'jsonlite')
+  # check the packages are actaually installed
+  for (p in requiredPackages) {
+    if (!require(p, character.only = TRUE)) install.packages(p, dependencies = TRUE)
+    library(p, character.only = TRUE)
+  }
+
 
   #Names each item in the tag list as "tag" this is necessary for the API query below
   naming <- c("tag")
