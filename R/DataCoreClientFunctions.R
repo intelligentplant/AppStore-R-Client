@@ -24,7 +24,6 @@
 #'
 #' @export GetHistoricalData
 GetHistoricalData = function(access_token, dsn, tags, startDate, endDate, funct, step, verbose = FALSE) {
-
   #The base URL of all appstore api queries
   baseUrl <- "https://appstore.intelligentplant.com/Gestalt"
   #The endpoint of the API
@@ -117,7 +116,7 @@ ParseResults = function(rawContent, tags, verbose) {
   ts <- jsonContent[[first[1]]]$Values$UtcSampleTime
 
   #create dataframe to be added to with the timestamps
-  df <- data.frame(ts)
+  df <- data.frame(ts, stringsAsFactors = FALSE)
 
   #loops over each tag and adds a column with that tags data to the dataframe
   for (tag in tags) {
